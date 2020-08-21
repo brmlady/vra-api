@@ -1,0 +1,15 @@
+    - name: Get Projects
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/projects'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: project_result
+    - name: Output Projects data
+      copy:
+        content: "{{ project_result.content }}"
+        dest: "config/files/project_result.json"
+        backup: yes

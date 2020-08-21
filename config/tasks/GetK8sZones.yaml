@@ -1,0 +1,15 @@
+    - name: Get k8szones
+      uri:
+        url: 'https://{{vraurl}}/cmx/api/resources/k8s-zones'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: k8szones_result
+    - name: Output Zones data
+      copy:
+        content: "{{ k8szones_result.content }}"
+        dest: "config/files/k8szones_result.json"
+        backup: yes

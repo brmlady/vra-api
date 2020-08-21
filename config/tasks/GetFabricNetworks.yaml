@@ -1,0 +1,15 @@
+    - name: Get fabric-networks
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/fabric-networks'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: fabricnetworks_result
+    - name: Output fabric-networks data
+      copy:
+        content: "{{ fabricnetworks_result.content }}"
+        dest: "config/files/fabricnetworks_result.json"
+        backup: yes

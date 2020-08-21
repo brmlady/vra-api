@@ -1,0 +1,16 @@
+- name: Output all data to version control
+  include_tasks: "{{ plays }}"
+  loop:
+    - GetFabricFlavors.yaml
+    - GetFabricImages.yaml
+    - GetFabricNetworks.yaml
+   # - GetK8sZones.yaml Not working yet
+    - GetNetworks.yaml
+    - GetProjects.yaml
+    - GetStorageProfiles.yaml
+    - GetTags.yaml
+    - GetZones.yaml
+    - GetBlueprints.yaml
+    - GetPolicies.yaml
+  loop_control:
+    loop_var: plays

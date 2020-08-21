@@ -1,0 +1,15 @@
+    - name: Storage Profiles
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/storage-profiles'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: storage_profiles_result
+    - name: Output Storage Profiles data
+      copy:
+        content: "{{ storage_profiles_result.content }}"
+        dest: "config/files/storage_profiles_result.json"
+        backup: yes

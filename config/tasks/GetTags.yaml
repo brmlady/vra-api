@@ -1,0 +1,15 @@
+    - name: Get Tags
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/tags?$top=2000'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: tags_result
+    - name: Output Tags data
+      copy:
+        content: "{{ tags_result.content }}"
+        dest: "config/files/tags_result.json"
+        backup: yes

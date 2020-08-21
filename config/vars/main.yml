@@ -1,0 +1,5 @@
+# do not use var: "vars here becomes a 'variable' which conflicts with the internally used 'vars' variable .. don't do this in ANY vars file." https://github.com/ansible/ansible/issues/23801
+    vraurl: "{{ vraurl_prompt }}"
+    vrausername: "{{ username_prompt }}"
+    vrapassword: "{{ password_prompt }}"
+    domain: "{{ domain_prompt }}"

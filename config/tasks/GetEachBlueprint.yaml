@@ -1,0 +1,14 @@
+    - name: Get blueprint
+      uri:
+        url: 'https://{{vraurl}}/blueprint/api/blueprints/{{ id_item }}/versions'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: blueprint_result
+    - include_tasks: GetEachBlueprintReleasedVersion.yaml
+      loop: "{{ blueprint_result | json_query('json.content[*].version') | list }}"
+      loop_control:
+        loop_var: versions

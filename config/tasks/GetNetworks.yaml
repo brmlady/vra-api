@@ -1,0 +1,15 @@
+    - name: Get networks
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/networks'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: networks_result
+    - name: Output Networks data
+      copy:
+        content: "{{ networks_result.content }}"
+        dest: "config/files/networks_result.json"
+        backup: yes

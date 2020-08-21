@@ -1,0 +1,15 @@
+    - name: Get Fabric Flavors
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/fabric-flavors'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: fabricflavors_result
+    - name: Output Fabric Flavors data
+      copy:
+        content: "{{ fabricflavors_result.content }}"
+        dest: "config/files/fabricflavors_result.json"
+        backup: yes

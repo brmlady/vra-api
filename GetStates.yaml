@@ -1,0 +1,19 @@
+---
+- name: Running Local
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  roles:
+    - role: "config"     # loas main.yaml for var, tasks (use for api connect)
+  tasks:
+  - name: Adding VersionControl
+    include_role: 
+      name: "config"
+      tasks_from: VersionControl.yaml
+
+
+
+
+
+
+

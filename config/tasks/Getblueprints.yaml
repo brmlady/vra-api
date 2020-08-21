@@ -1,0 +1,15 @@
+    - name: Get blueprint List
+      uri:
+        url: 'https://{{vraurl}}/blueprint/api/blueprints/'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: blueprint_list_result
+    - include_tasks: GetEachBlueprint.yaml
+      loop: "{{ blueprint_list_result | json_query('json.content[*].id') | list }}"
+      loop_control:
+        loop_var: id_item
+    

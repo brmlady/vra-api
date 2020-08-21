@@ -1,0 +1,18 @@
+#only get versioned blueprints and leave things in draft versions
+    - name: Get blueprint
+      uri:
+        url: 'https://{{vraurl}}/blueprint/api/blueprints/{{ id_item }}/versions/{{ versions }}'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: blueprint_version_result
+    - name: Output blueprint version data
+      copy:
+        content: "{{ blueprint_version_result.content }}"
+        dest: "config/files/blueprint_{{ blueprint_version_result | json_query('json.name') }}_id_{{ id_item }}_status_{{ blueprint_version_result | json_query('json.status') }}version_{{ blueprint_version_result | json_query('json.version') }}.json"
+        backup: yes
+
+

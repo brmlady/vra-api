@@ -1,0 +1,13 @@
+    - name: Get access_token
+      uri:
+        url: 'https://{{vraurl}}/csp/gateway/am/api/login?access_token'
+        follow_redirects: all
+        method: POST
+        body:
+          username: "{{ vrausername }}"
+          password: "{{ vrapassword }}"
+          domain: "{{ domain }}"
+        body_format: json
+        headers:
+          Content-Type: application/json
+      register: access_token

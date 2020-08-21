@@ -1,0 +1,15 @@
+    - name: Get Zones
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/zones'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: zones_result
+    - name: Output Zones data
+      copy:
+        content: "{{ zones_result.content }}"
+        dest: "config/files/zones_result.json"
+        backup: yes

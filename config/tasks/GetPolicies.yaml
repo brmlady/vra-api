@@ -1,0 +1,14 @@
+    - name: Get Policies
+      uri:
+        url: 'https://{{vraurl}}/policy/api/policies'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: policies_result
+    - include_tasks: GetEachPolicies.yaml
+      loop: "{{ policies_result | json_query('json.content[*].id') | list }}"
+      loop_control:
+        loop_var: policies_item

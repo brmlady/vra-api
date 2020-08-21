@@ -1,0 +1,15 @@
+    - name: Get Fabric Images
+      uri:
+        url: 'https://{{vraurl}}/iaas/api/fabric-images'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json,version=2
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: fabricimages_result
+    - name: Output Fabric Images data
+      copy:
+        content: "{{ fabricimages_result.content }}"
+        dest: "config/files/fabricimages_result.json"
+        backup: yes

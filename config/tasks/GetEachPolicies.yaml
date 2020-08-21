@@ -1,0 +1,15 @@
+    - name: Get Each Policies
+      uri:
+        url: 'https://{{vraurl}}/policy/api/policies/{{ policies_item }}'
+        method: GET
+        headers:
+          Content-Type: application/json
+          Accept: application/json
+          Authorization: "{{ access_token.authorization }}"
+        return_content: yes
+      register: policies_result
+    - name: Output policies version data
+      copy:
+        content: "{{ policies_result.content }}"
+        dest: "config/files/policies_name_{{ policies_result | json_query('json.name') }}_id_{{ policies_result | json_query('json.id') }}.json"        
+        backup: yes
